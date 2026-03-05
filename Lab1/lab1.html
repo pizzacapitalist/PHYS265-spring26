@@ -7833,16 +7833,22 @@ a square aspect ratio. Make sure to add a nice colorbar, and make the colorbar l
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Creating range of x and y values from -1.5dEM to 1.5 dEM</span>
 <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="o">*</span><span class="n">dEM</span><span class="p">,</span><span class="mf">1.5</span><span class="o">*</span><span class="n">dEM</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
 <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="o">*</span><span class="n">dEM</span><span class="p">,</span><span class="mf">1.5</span><span class="o">*</span><span class="n">dEM</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+
+<span class="c1">#Converting to meshgrid for 2D plot</span>
 <span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="c1">#Computing distance between 2 points</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
+<span class="c1">#gravitational potential array due to earth at position 0,0</span>
 <span class="n">potent</span><span class="o">=</span><span class="n">g_potent</span><span class="p">(</span><span class="n">Me</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
 
+<span class="c1">#Plotting</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
 <span class="n">mesh</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="o">-</span><span class="n">potent</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">'magma'</span><span class="p">,</span><span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">())</span>
 <span class="n">cbar</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
 
+<span class="c1">#Labeling</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"x (m)"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"y (m)"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Mesh plot - Gravitational potential around Earth"</span><span class="p">)</span>
@@ -7899,15 +7905,18 @@ of the gravitational potential of the combined Earth-Moon system.</li>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">potent_e</span><span class="o">=</span><span class="n">g_potent</span><span class="p">(</span><span class="n">Me</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Creating g potential arrays from Earth and the Moon</span>
+<span class="n">potent_e</span><span class="o">=</span><span class="n">g_potent</span><span class="p">(</span><span class="n">Me</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
 <span class="n">potent_m</span><span class="o">=</span><span class="n">g_potent</span><span class="p">(</span><span class="n">Mm</span><span class="p">,(</span><span class="n">dEM</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)),(</span><span class="n">dEM</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
 <span class="n">potent_total</span><span class="o">=</span><span class="n">potent_e</span><span class="o">+</span><span class="n">potent_m</span> <span class="c1">#Gravitational potential is a scalar thus it obeys superposition so it can be added</span>
 
+<span class="c1">#Plotting</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
 <span class="n">mesh</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="o">-</span><span class="n">potent_total</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">'rainbow'</span><span class="p">,</span><span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">())</span>
 <span class="n">cbar</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
 
+<span class="c1">#Labeling</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"x (m)"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"y (m)"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Mesh plot - Gravitational potential of Earth-Moon system"</span><span class="p">)</span>
@@ -7954,14 +7963,17 @@ You will probably again need to tell matplotlib to use a logarithmic color scale
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span>
+    <span class="c1">#Making levels for graph log scaled for better visuals</span>
     <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="o">-</span><span class="n">potent_total</span><span class="p">)),</span>
     <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="o">-</span><span class="n">potent_total</span><span class="p">)),</span>
     <span class="mi">28</span>
 <span class="p">)</span>
+<span class="c1">#Plotting</span>
 <span class="n">cont</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="o">-</span><span class="n">potent_total</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s2">"magma"</span><span class="p">,</span><span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
 <span class="n">cbar</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
 
+<span class="c1">#Labeling</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"x (m)"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"y (m)"</span><span class="p">)</span>
 <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">"Magnitude of gravitational potential (J/kg)"</span><span class="p">)</span>
@@ -8110,29 +8122,35 @@ Add a legend.</li>
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
+<span class="c1">#Plotting markers and setting limits of graph</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s2">"ko"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dEM</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">dEM</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="s2">"ks"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">dEM</span><span class="p">,</span><span class="n">dEM</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">dEM</span><span class="p">,</span><span class="n">dEM</span><span class="p">)</span>
 
+<span class="c1">#creating x and y values</span>
 <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">dEM</span><span class="p">,</span><span class="n">dEM</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">dEM</span><span class="p">,</span><span class="n">dEM</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+<span class="c1">#Creating meshgrid for 2D plot</span>
 <span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 
+<span class="c1">#Creating placeholder values</span>
 <span class="n">Fx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">))</span>
 <span class="n">Fy</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">))</span>
 
+<span class="c1">#Looking through x values for y values to assign force components for each point</span>
 <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
         <span class="n">Fx_e</span><span class="p">,</span><span class="n">Fy_e</span><span class="o">=</span><span class="n">g_force</span><span class="p">(</span><span class="n">Me</span><span class="p">,</span><span class="n">Macm</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">],</span><span class="n">Y</span><span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">])</span>
 
         <span class="n">Fx_m</span><span class="p">,</span><span class="n">Fy_m</span><span class="o">=</span><span class="n">g_force</span><span class="p">(</span><span class="n">Mm</span><span class="p">,</span><span class="n">Macm</span><span class="p">,</span><span class="n">dEM</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">dEM</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">],</span><span class="n">Y</span><span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">])</span>
 
-        <span class="c1">#sum them up</span>
+        <span class="c1">#sum them up (x components and y components from each body)</span>
         <span class="n">Fx</span><span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">Fx_e</span><span class="o">+</span><span class="n">Fx_m</span><span class="p">)</span>
         <span class="n">Fy</span><span class="p">[</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">Fy_e</span><span class="o">+</span><span class="n">Fy_m</span><span class="p">)</span>
 
+<span class="c1">#Plotting and labeling</span>
 <span class="n">stream</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Fx</span><span class="p">,</span><span class="n">Fy</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">Fx</span><span class="p">,</span><span class="n">Fy</span><span class="p">)),</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">hot</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"x (m)"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"y (m)"</span><span class="p">)</span>
@@ -8227,8 +8245,10 @@ When the magnitude of both forces equals eachother, you get the resulting equati
 <div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">r_balance</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Me</span><span class="p">)</span><span class="o">*</span><span class="n">dEM</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Me</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Mm</span><span class="p">))</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Computing balance point from equation</span>
+<span class="n">r_balance</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Me</span><span class="p">)</span><span class="o">*</span><span class="n">dEM</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Me</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Mm</span><span class="p">))</span>
 
+<span class="c1">#Plotting same graph from last time</span>
 <span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">stream</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Fx</span><span class="p">,</span><span class="n">Fy</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">Fx</span><span class="p">,</span><span class="n">Fy</span><span class="p">)),</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">hot</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s2">"ko"</span><span class="p">)</span>
@@ -8237,15 +8257,20 @@ When the magnitude of both forces equals eachother, you get the resulting equati
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">dEM</span><span class="p">,</span><span class="n">dEM</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">dEM</span><span class="p">,</span><span class="n">dEM</span><span class="p">)</span>
 
+<span class="c1">#Labeling</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"x (m)"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"y (m)"</span><span class="p">)</span>
 <span class="n">cbar</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span>
 <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">"Gravitational force strength (N)"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Streamplot of gravitational force on Apollo 11"</span><span class="p">)</span>
 
+<span class="c1">#Solving for x value and y value of balance point from r_balance.</span>
 <span class="n">x_balance</span><span class="o">=</span><span class="n">r_balance</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">y_balance</span><span class="o">=</span><span class="n">x_balance</span>
+<span class="c1">#Plotting red x marker</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_balance</span><span class="p">,</span><span class="n">y_balance</span><span class="p">,</span><span class="s2">"rx"</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="s2">"7"</span><span class="p">)</span>
+
+<span class="c1">#Printing distances for use later in lab</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">r_balance</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dEM</span><span class="o">-</span><span class="n">r_balance</span><span class="p">)</span>
 </pre></div>
@@ -8364,7 +8389,7 @@ to use to carry the Apollo capsule.</li>
 <span class="n">m0</span><span class="o">=</span><span class="n">Mwet</span> <span class="c1">#wet mass</span>
 <span class="n">mf</span><span class="o">=</span><span class="n">Mdry</span> <span class="c1">#dry mass</span>
 
-<span class="n">T_burn</span><span class="o">=</span><span class="p">(</span><span class="n">m0</span><span class="o">-</span><span class="n">mf</span><span class="p">)</span><span class="o">/</span><span class="n">mdot</span>
+<span class="n">T_burn</span><span class="o">=</span><span class="p">(</span><span class="n">m0</span><span class="o">-</span><span class="n">mf</span><span class="p">)</span><span class="o">/</span><span class="n">mdot</span> <span class="c1">#Computing time to burn all fuel from equation</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">T_burn</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -8426,6 +8451,7 @@ Again, document and guard your function according to best practices.</li>
 <span class="sd">    Returns:</span>
 <span class="sd">        delta_v (int,float): The change in velocity in meters per second </span>
 <span class="sd">    """</span>
+    <span class="c1">#Preconditon check</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,(</span><span class="nb">int</span><span class="p">,</span><span class="nb">float</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">m0</span><span class="p">,</span><span class="n">mf</span><span class="p">,</span><span class="n">mdot</span><span class="p">,</span><span class="n">v_e</span><span class="p">,</span><span class="n">g</span><span class="p">)):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"Inputs of the wrong type"</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">mdot</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span>
@@ -8434,9 +8460,9 @@ Again, document and guard your function according to best practices.</li>
     <span class="n">T_end</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">T_burn</span><span class="p">)</span> <span class="c1">#Check if the time given is smaller or if time is greater than total burn time </span>
     <span class="c1">#Important for cutting off burning of mass after fuel is spent</span>
     
-    <span class="n">mt</span><span class="o">=</span><span class="n">m0</span><span class="o">-</span><span class="n">mdot</span><span class="o">*</span><span class="n">T_end</span>
+    <span class="n">mt</span><span class="o">=</span><span class="n">m0</span><span class="o">-</span><span class="n">mdot</span><span class="o">*</span><span class="n">T_end</span> <span class="c1">#Solve for mass at time T_end</span>
 
-    <span class="n">delta_v</span><span class="o">=</span><span class="n">v_e</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">m0</span><span class="o">/</span><span class="n">mt</span><span class="p">)</span><span class="o">-</span><span class="n">g</span><span class="o">*</span><span class="n">T_end</span>
+    <span class="n">delta_v</span><span class="o">=</span><span class="n">v_e</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">m0</span><span class="o">/</span><span class="n">mt</span><span class="p">)</span><span class="o">-</span><span class="n">g</span><span class="o">*</span><span class="n">T_end</span> <span class="c1">#Solve for delta v using equation</span>
 
     <span class="k">return</span> <span class="n">delta_v</span>
 
@@ -8471,7 +8497,8 @@ Use the <code>scipy.integrate.quad()</code> function.</li>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">alt</span><span class="p">,</span><span class="n">alt_err</span><span class="o">=</span><span class="n">integrate</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">delta_v</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">T_burn</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">m0</span><span class="p">,</span><span class="n">mf</span><span class="p">,</span><span class="n">mdot</span><span class="p">,</span><span class="n">exh_v</span><span class="p">,</span><span class="n">g</span><span class="p">))</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">alt</span><span class="p">,</span><span class="n">alt_err</span><span class="o">=</span><span class="n">integrate</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">delta_v</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">T_burn</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">m0</span><span class="p">,</span><span class="n">mf</span><span class="p">,</span><span class="n">mdot</span><span class="p">,</span><span class="n">exh_v</span><span class="p">,</span><span class="n">g</span><span class="p">))</span> <span class="c1">#Computing altitude and altitude error</span>
+<span class="c1">#Printing values for reference</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">alt</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">alt_err</span><span class="p">)</span>
 </pre></div>
